@@ -96,12 +96,8 @@ WSGI_APPLICATION = 'ekeflics.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'cp2383082p25_ekeflics',  # Remplacez par le nom exact de votre base
-        'USER': 'cp2383082p25_hamed',  # Remplacez par le nom d'utilisateur MySQL
-        'PASSWORD': 'Surnaturel12@',  # Remplacez par le mot de passe
-        'HOST': '91.234.194.198',  # Remplacez avec l'hôte fourni par LWS
-        'PORT': '3306',  # Le port par défaut de MySQL
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
 
