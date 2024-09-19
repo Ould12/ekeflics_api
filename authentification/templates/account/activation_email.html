@@ -1,0 +1,7 @@
+<!-- activation_email.html -->
+
+{% autoescape off %}
+Bonjour {{ user.username }},
+Veuillez cliquer sur le lien ci-dessous pour confirmer votre adresse email et activer votre compte :
+<a href="{{ protocol }}://{{ domain }}{% url 'activate' uidb64=uid token=token %}">Confirmer mon adresse email</a>
+{% endautoescape %}

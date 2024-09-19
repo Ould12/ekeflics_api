@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <script src="https://cdn.cinetpay.com/seamless/main.js"></script>
+    <style>
+        .sdk {
+            display: block;
+            position: absolute;
+            background-position: center;
+            text-align: center;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+        }
+    </style>
+    <script>
+        function checkout() {
+            fetch('/api/payment/', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': getCookie('csrftoken')  // Assurez-vous que le token CSRF est inclus
+                },
+                body: JSON.stringify({ amount: 100 })  // Assurez-vous que le montant est correctement passé
+            })
+            .then(response => response.json())
+            .then(data => {
+                if (data.payment_url) {
+                    window.location.href = data.payment_url;
+                } else {
+                    alert('Erreur lors de la création du paiement');
+                }
+            })
+            .catch(error => console.error('Erreur:', error));
+        }
+
+        function getCookie(name) {
+            let cookieValue = null;
+            if (document.cookie && document.cookie !== '') {
+                const cookies = document.cookie.split(';');
+                for (let i = 0; i < cookies.length; i++) {
+                    const cookie = cookies[i].trim();
+                    if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                        break;
+                    }
+                }
+            }
+            return cookieValue;
+        }
+    </script>
+</head>
+<body>
+    <div class="sdk">
+        <h1>SDK SEAMLESS</h1>
+        <button onclick="checkout()">Checkout</button>
+    </div>
+</body>
+</html>
